@@ -11,10 +11,11 @@ import UIKit
 class ClockView: UIView {
     var   resetbtn:UIButton!
     var   timevalue:Double!
-    var   dis:UILabel!
+    var   dis:JianBianLab!
     var   starbtn:UIButton!
     var   stopbtn:UIButton!
     var   atime:NSTimer!
+    var   ashape:CAShapeLayer!
     override init(frame: CGRect) {
         super.init(frame: frame);
         atime = NSTimer(timeInterval: 0.1, target: self, selector: #selector(updatetime), userInfo: nil, repeats: true)
@@ -24,7 +25,8 @@ class ClockView: UIView {
         resetbtn.setTitle("reset", forState: .Normal)
         starbtn = UIButton()
         starbtn.setTitle("start", forState: .Normal)
-        dis = UILabel()
+        dis = JianBianLab()
+        
         dis.text = "\(timevalue)"
         stopbtn = UIButton()
         stopbtn.setTitle("stop", forState: .Normal)
@@ -33,12 +35,15 @@ class ClockView: UIView {
         starbtn.addTarget(self, action: #selector(start), forControlEvents: .TouchUpInside)
            stopbtn.addTarget(self, action: #selector(stop), forControlEvents: .TouchUpInside)
         
-        backgroundColor = UIColor.grayColor()
-        addSubview(resetbtn)
+         backgroundColor = UIColor.grayColor()
+         addSubview(resetbtn)
          addSubview(dis)
          addSubview(starbtn)
          addSubview(stopbtn)
+    
     }
+   
+    
     func updatetime()  {
         timevalue = timevalue + 0.1
         
@@ -74,15 +79,15 @@ class ClockView: UIView {
     }
     override  func layoutSubviews() {
         let   w = self.bounds.size.width
-        let   h =  self.bounds.size.height
+    
         resetbtn.frame = CGRectMake(w-60, 30, 60, 30)
         dis.textAlignment = .Center
-        dis.frame = CGRectMake(0,h/2-15 , w, 30)
+        dis.textColor = UIColor.blueColor()
+        dis.bounds.size = CGSizeMake(70, 35)
+        dis.center = self.center
+        
         starbtn.frame = CGRectMake(10, CGRectGetMaxY(dis.frame)+50, 80, 30)
         stopbtn.frame = CGRectMake(w-90, CGRectGetMaxY(dis.frame)+50, 80, 30)
-        
-        
-        
     }
     
     
